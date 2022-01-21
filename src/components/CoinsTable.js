@@ -18,7 +18,6 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 import { CoinList } from "../config/api";
-import { Link } from "react-router-dom";
 import { CryptoState } from "../Context";
 import { useNavigate } from "react-router-dom";
 
