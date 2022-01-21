@@ -9,11 +9,11 @@ import { numberWithCommas } from "../components/CoinsTable";
 import { CryptoState } from "../Context";
 import PriceConverter from "../components/PriceConverter";
 import News from "../components/News";
+import colors from "../config/Colors";
 
 const CoinPage = () => {
   const { id } = useParams();
   const [coin, setCoin] = useState();
-
   const { currency, symbol } = CryptoState();
 
   const fetchCoin = async () => {
@@ -84,7 +84,7 @@ const CoinPage = () => {
 
   const classes = useStyles();
 
-  if (!coin) return <LinearProgress style={{ backgroundColor: "gold" }} />;
+  if (!coin) return <LinearProgress style={{ backgroundColor: colors.primary }} />;
 
   return (
     <div className={classes.containers}>
@@ -165,7 +165,8 @@ const CoinPage = () => {
         <CoinInfo coin={coin} />
       </div>
       <PriceConverter coin={coin} />
-      {/* <News coin={coin} /> */}
+      <h1 className={classes.heading}>News</h1>
+      <News coin={coin} />
     </div>
   );
 };

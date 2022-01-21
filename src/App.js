@@ -4,13 +4,16 @@ import Header from "./components/Header";
 import Homepage from "./Pages/Homepage";
 import Coinpage from "./Pages/Coinpage";
 import { makeStyles } from "@material-ui/core/styles";
+import colors from "./config/Colors";
+import { CryptoState } from "./Context";
 
 function App() {
+  const { darkMode } = CryptoState();
   const useStyles = makeStyles(() => ({
     App: {
-      backgroundColor: "#1a1a1c",
+      backgroundColor: colors.dtheme.background,
       minHeight: "100vh",
-      color: "#fff",
+      color: colors.dtheme.color,
     },
   }));
 

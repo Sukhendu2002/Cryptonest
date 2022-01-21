@@ -1,18 +1,18 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { CryptoState } from "../Context";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { TextField, createTheme, ThemeProvider } from "@material-ui/core";
+import colors from "../config/Colors";
 
 function PriceConverter({ coin }) {
   const { currency } = CryptoState();
+  const { darkMode } = CryptoState();
   const [cyptoprice, setCyptoprice] = useState(
     coin.market_data.current_price[currency.toLowerCase()]
   );
   const [convartedprice, setConvartedprice] = useState(0);
-
-  console.log(coin.market_data.current_price[currency.toLowerCase()]);
 
   const useStyles = makeStyles((theme) => ({
     container: {
@@ -45,9 +45,9 @@ function PriceConverter({ coin }) {
   const darkTheme = createTheme({
     palette: {
       primary: {
-        main: "#fff",
+        main: colors.dtheme.color,
       },
-      type: "dark",
+      type: colors.dtheme.type,
     },
   });
   return (

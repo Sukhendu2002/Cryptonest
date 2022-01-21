@@ -20,6 +20,7 @@ import axios from "axios";
 import { CoinList } from "../config/api";
 import { CryptoState } from "../Context";
 import { useNavigate } from "react-router-dom";
+import colors from "../config/Colors";
 
 export function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -33,19 +34,20 @@ export default function CoinsTable() {
   const [page, setPage] = useState(1);
 
   const { currency, symbol } = CryptoState();
+  const { darkMode } = CryptoState();
 
   const useStyles = makeStyles({
     row: {
-      backgroundColor: "#16171a",
+      backgroundColor: colors.dtheme.tbackground,
       cursor: "pointer",
       "&:hover": {
-        backgroundColor: "#131111",
+        backgroundColor: colors.dtheme.thoverbackground,
       },
       fontFamily: "Montserrat",
     },
     pagination: {
       "& .MuiPaginationItem-root": {
-        color: "gold",
+        color: colors.primary,
       },
     },
   });
@@ -55,17 +57,15 @@ export default function CoinsTable() {
   const darkTheme = createTheme({
     palette: {
       primary: {
-        main: "#fff",
+        main: colors.dtheme.color,
       },
-      type: "dark",
+      type: colors.dtheme.type,
     },
   });
 
   const fetchCoins = async () => {
     setLoading(true);
     const { data } = await axios.get(CoinList(currency));
-    console.log(data);
-
     setCoins(data);
     setLoading(false);
   };
@@ -94,7 +94,7 @@ export default function CoinsTable() {
           variant="h4"
           style={{ margin: 18, fontFamily: "Montserrat" }}
         >
-          Cryptocurrency Prices by Market Cap
+          Cryptocurrency Prices
         </Typography>
         <TextField
           label="Search For a Crypto Currency.."
@@ -104,10 +104,10 @@ export default function CoinsTable() {
         />
         <TableContainer component={Paper}>
           {loading ? (
-            <LinearProgress style={{ backgroundColor: "gold" }} />
+            <LinearProgress style={{ backgroundColor: colors.primary }} />
           ) : (
             <Table aria-label="simple table">
-              <TableHead style={{ backgroundColor: "#EEBC1D" }}>
+              <TableHead style={{ backgroundColor: colors.primary }}>
                 <TableRow>
                   {["Coin", "Price", "24h Change", "Market Cap"].map((head) => (
                     <TableCell

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NewsCard from "./NewsCard";
 import { makeStyles } from "@material-ui/core/styles";
+import { CircularProgress } from "@material-ui/core";
+import colors from "../config/Colors";
 
 const useStyles = makeStyles({
   news: {
     display: "flex",
-    width: "80%",
-    // backgroundColor: "white",
+    width: "90%",
     flexWrap: "wrap",
     alignItems: "center",
     textAlign: "center",
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
 });
 
 function News({ coin }) {
-  const [news, setNews] = React.useState([]);
+  const [news, setNews] = useState([]);
   const classes = useStyles();
 
   const options = {
@@ -32,25 +33,31 @@ function News({ coin }) {
     headers: {
       "x-bingapis-sdk": "true",
       "x-rapidapi-host": "bing-news-search1.p.rapidapi.com",
-      "x-rapidapi-key": "30016b0990msh3dd0c6a3daf8220p163266jsn8d986ae9b749",
+      "x-rapidapi-key": `${process.env.REACT_APP_RAPID_KEY}`,
     },
   };
 
   const fetchNews = async () => {
     const { data } = await axios(options);
     setNews(data.value);
-    console.log(data.value);
   };
 
   useEffect(() => {
     fetchNews();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className={classes.news}>
-      {news.map((news) => (
-        <NewsCard news={news} />
-      ))}
+      {!news ? (
+        <CircularProgress
+          style={{ color: colors.primary }}
+          size={250}
+          thickness={1}
+        />
+      ) : (
+        news.map((news) => <NewsCard news={news} key={news.id} />)
+      )}
     </div>
   );
 }

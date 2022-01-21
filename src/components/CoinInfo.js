@@ -21,6 +21,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import colors from "../config/Colors";
 
 ChartJS.register(
   CategoryScale,
@@ -33,6 +34,7 @@ ChartJS.register(
 );
 
 const CoinInfo = ({ coin }) => {
+  const { darkMode } = CryptoState();
   const [historicData, setHistoricData] = useState();
   const [days, setDays] = useState(1);
   const { currency } = CryptoState();
@@ -74,9 +76,9 @@ const CoinInfo = ({ coin }) => {
   const darkTheme = createTheme({
     palette: {
       primary: {
-        main: "#fff",
+        main: colors.dtheme.color,
       },
-      type: "dark",
+      type: colors.dtheme.type,
     },
   });
 

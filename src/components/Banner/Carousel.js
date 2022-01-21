@@ -6,15 +6,15 @@ import { Link } from "react-router-dom";
 import { TrendingCoins } from "../../config/api";
 import { CryptoState } from "../../Context";
 import { numberWithCommas } from "../CoinsTable";
+import colors from "../../config/Colors";
 
 const Carousel = () => {
   const [trending, setTrending] = useState([]);
   const { currency, symbol } = CryptoState();
+  const { darkMode } = CryptoState();
 
   const fetchTrendingCoins = async () => {
     const { data } = await axios.get(TrendingCoins(currency));
-
-    console.log(data);
     setTrending(data);
   };
 
@@ -35,7 +35,7 @@ const Carousel = () => {
       alignItems: "center",
       cursor: "pointer",
       textTransform: "uppercase",
-      color: "white",
+      color: colors.dtheme.color,
     },
   }));
 
